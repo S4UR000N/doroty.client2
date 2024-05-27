@@ -4,7 +4,7 @@ import { AngularMaterialFormModule } from '../../module/angular-material-form.mo
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
-import ILoginReqModel from '../../model/login/login-request.model';
+import ILoginReqModel from '../../model/login/login-request.interface';
 
 @Component({
   selector: 'app-login',
