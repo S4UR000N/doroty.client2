@@ -30,9 +30,12 @@
               "src/assets"
             ],
             "styles": [
+              "src/assets/cyan-orange.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -90,6 +93,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/assets/cyan-orange.css",
               "src/styles.scss"
             ],
             "scripts": []
