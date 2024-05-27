@@ -1,0 +1,42 @@
+<div class="container-fluid justify-content-center">
+<div class="row justify-content-center">
+<div class="col-sm-12 col-md-8 col-lg-6">
+  <form [formGroup]="loginForm" class="outline p-3 mt-md-5 mt-lg-5">
+    <div class="row justify-content-center p-2">
+      <div class="col-6 text-center">
+        <h2 class="text-white">Doroty</h2>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-6 text-center">
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput
+                placeholder="email@example.com"
+                [formControlName]="'email'"
+                required>
+        </mat-form-field>
+      </div>
+    </div>
+    
+    <div class="row justify-content-center">
+      <div class="col-6 text-center">
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput
+                [formControlName]="'password'"
+                required>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-6 text-center">
+        <button mat-button color="primary" (click)="handleLogin()" [disabled]="isDisabled">Login</button>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+</div>
