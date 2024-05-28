@@ -1,7 +1,7 @@
 import { DocumentReference } from "firebase/firestore";
 
 interface ICustomerModel {
-    id?: DocumentReference;
+    ref?: DocumentReference;
     name: string;
     age: number;
     gender: number;
