@@ -33,8 +33,20 @@ export class CreateCustomerDialog {
   ) {}
 
   
-  async submit(): Promise<void> {
-    console.log("submit");
+  async submit(event: MouseEvent): Promise<void> {
+    (event.target as HTMLButtonElement).disabled = true;
+    let model: ICustomerModel = {
+      name: this.form.get('name')?.value,
+      age: this.form.get('age')?.value,
+      gender: this.form.get('gender')?.value,
+      phone: this.form.get('phone')?.value,
+      address: this.form.get('address')?.value,
+      description: this.form.get('description')?.value,
+      alergies: this.form.get('alergies')?.value,
+      status: this.form.get('status')?.value
+    };
+    let res = await this.customerService.create(model);
+    this.dialogRef.close(res.success);
   }
   async cancel(): Promise<void> {
     this.dialogRef.close();

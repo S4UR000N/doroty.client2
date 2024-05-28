@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from './service/auth.service';
 import { HeaderComponent } from './component/header/header.component';
+import { SuccessAlertComponent } from './alert/success/success.alert';
+import { FailAlertComponent } from './alert/fail/fail.alert';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent],
+  imports: [RouterOutlet, HeaderComponent, SuccessAlertComponent, FailAlertComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
