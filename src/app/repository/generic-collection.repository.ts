@@ -61,7 +61,7 @@ class GenericCollectionRepository<T extends { ref?: DocumentReference }> extends
     async readMany(): Promise<IResponseModel<T[]>> {
         try {
             return ({
-                result: (await getDocs(this.collectionRef)).docs.reduce((acc, obj) => (acc.push({...(obj.data() as T), id: obj.ref}), acc), [] as T[]),
+                result: (await getDocs(this.collectionRef)).docs.reduce((acc, obj) => (acc.push({...(obj.data() as T), ref: obj.ref}), acc), [] as T[]),
                 success: true
             });
         }
@@ -75,7 +75,7 @@ class GenericCollectionRepository<T extends { ref?: DocumentReference }> extends
     async readManySub<S extends T>(path: string): Promise<IResponseModel<S[]>> {
         try {
             return ({
-                result: (await getDocs(collection(this.collectionRef, path))).docs.reduce((acc, obj) => (acc.push({...(obj.data() as S), id: obj.ref}), acc), [] as S[]),
+                result: (await getDocs(collection(this.collectionRef, path))).docs.reduce((acc, obj) => (acc.push({...(obj.data() as S), ref: obj.ref}), acc), [] as S[]),
                 success: true
             });
         }
