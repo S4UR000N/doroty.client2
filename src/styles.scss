@@ -2,10 +2,13 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } // background-color: #191c1c;
+html, body { height: 100%; 
+    font-size: 1rem;    
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+body { margin: 0;  } // background-color: #191c1c;
 .outline {
-    border: 1px solid #c4c6d0;
+    border: 1px solid #F2F4F3;
     border-radius: 12px
 }
 .fw-slight {
@@ -13,4 +16,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } // backgr
 }
 .td-hover:hover {
     background-color: #ececec;
+}
+
+@media (min-width: 2200px) {
+    .font-xl-small {
+      font-size: 1.5rem; /* 24px */
+    }
+    .font-xl-medium {
+      font-size: 1.75rem; /* 28px */
+    }
+    .font-xl-large {
+      font-size: 2rem; /* 32px */
+    }
+    button.cyan {
+        outline: 0.2rem solid #119DA4;
+    }
 }
