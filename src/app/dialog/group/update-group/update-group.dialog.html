@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Dodaj Grupu</h2>
+<mat-dialog-content class="custom-scrollbar">
+    <form [formGroup]="form">
+        <div class="row justify-content-center">
+            <div class="col text-center">
+                <mat-form-field>
+                    <mat-label>Ime Grupe</mat-label>
+                    <input matInput type="string" [formControlName]="'name'" required/>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+<mat-dialog-actions>
+  <button mat-button (click)="submit($event)">Spremi</button>
+  <button mat-button (click)="cancel()">Odustani</button>
+</mat-dialog-actions>

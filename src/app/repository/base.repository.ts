@@ -8,10 +8,10 @@ abstract class BaseRepository {
     protected storage: FirebaseStorage;
     public collectionRef: CollectionReference;
 
-    constructor(collectionName: string, private firebaseConnectorService: FirebaseConnectorService) {
-        this.firestore = this.firebaseConnectorService.getFirestoreInstance();
-        this.storage = this.firebaseConnectorService.getStorageInstance();
-        this.collectionRef = collection(this.firestore, collectionName);
+    constructor(private _collectionPath: string, private _firebaseConnectorService: FirebaseConnectorService) {
+        this.firestore = this._firebaseConnectorService.getFirestoreInstance();
+        this.storage = this._firebaseConnectorService.getStorageInstance();
+        this.collectionRef = collection(this.firestore, this._collectionPath);
     }
 }
 
