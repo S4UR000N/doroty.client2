@@ -1,4 +1,5 @@
 import { DocumentReference } from "firebase/firestore";
+import IGroupModel from "./group.interface";
 
 interface ICustomerModel {
     ref?: DocumentReference;
@@ -10,6 +11,7 @@ interface ICustomerModel {
     description: string;
     alergies: string;
     status: number;
+    groups?: IGroupModel[];
 }
 
 export default ICustomerModel;

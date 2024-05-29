@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-info mt-lg-2 ms-lg-2" (click)="openCreateDialog()">Dodaj Klijenta</button>
+<button type="button" class="btn btn-info mt-lg-2 ms-lg-2" (click)="create()">Dodaj Klijenta</button>
 
 <table class="table table-hover">
     <thead>
@@ -11,19 +11,25 @@
           <th>Opis</th>
           <th>Alergije</th>
           <th>Status</th>
+          <!-- <th class="text-center">Uredi</th> -->
+          <th class="text-center">Ažuriraj</th>
+          <th class="text-center">Obriši</th>
         </tr>
     </thead>
     <tbody>
-        @for (customer of customers; track $index) {
-            <tr (click)="redirect(customer)">
-                <td>{{customer.name}}</td>
-                <td>{{customer.age}}</td>
-                <td>{{customer.gender ? 'M' : 'Ž'}}</td>
-                <td>{{customer.phone}}</td>
-                <td>{{customer.address}}</td>
-                <td>{{customer.description}}</td>
-                <td>{{customer.alergies}}</td>
-                <td>{{customer.status ? 'Aktivan' : 'Nije Aktivan'}}</td>
+        @for (customer of customers; let index = $index; track index) {
+            <!-- <tr (click)="redirect(customer)"> -->
+            <tr>
+                <td (click)="redirect(customer)">{{customer.name}}</td>
+                <td (click)="redirect(customer)">{{customer.age}}</td>
+                <td (click)="redirect(customer)">{{customer.gender ? 'M' : 'Ž'}}</td>
+                <td (click)="redirect(customer)">{{customer.phone}}</td>
+                <td (click)="redirect(customer)">{{customer.address}}</td>
+                <td (click)="redirect(customer)">{{customer.description}}</td>
+                <td (click)="redirect(customer)">{{customer.alergies}}</td>
+                <td (click)="redirect(customer)">{{customer.status ? 'Aktivan' : 'Nije Aktivan'}}</td>
+                <td class="text-center td-hover" (click)="update(customer)"><i class="bi bi-pencil-square p-0 fs-5"></i></td>
+                <td class="text-center td-hover" (click)="delete(customer.ref!, index)"><i class="bi bi-trash2 p-0 fs-5"></i></td>
             </tr>
         }
     </tbody>

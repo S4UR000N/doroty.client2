@@ -1,4 +1,4 @@
-import { DocumentReference, DocumentSnapshot, addDoc, collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { DocumentReference, DocumentSnapshot, addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import BaseRepository from "./base.repository";
 import { FirebaseConnectorService } from "./firebase-connector.service";
 import IResponseModel from "../model/associated/response/response.interface";
@@ -76,6 +76,36 @@ class GenericCollectionRepository<T extends { ref?: DocumentReference }> extends
         try {
             return ({
                 result: (await getDocs(collection(this.collectionRef, path))).docs.reduce((acc, obj) => (acc.push({...(obj.data() as S), ref: obj.ref}), acc), [] as S[]),
+                success: true
+            });
+        }
+        catch (err) {
+            return ({
+                errors: [(err as Error).message],
+                success: false
+            });
+        }
+    }
+    async update(entity: T): Promise<IResponseModel<T>> {
+        try {
+            console.log(entity.ref!);
+            await updateDoc(entity.ref!, entity);
+            return ({
+                success: true
+            });
+        }
+        catch (err) {
+            console.log(err);
+            return ({
+                errors: [(err as Error).message],
+                success: false
+            });
+        }
+    }
+    async delete(ref: DocumentReference): Promise<IResponseModel<T>> {
+        try {
+            await deleteDoc(doc(this.collectionRef, ref.id));
+            return ({
                 success: true
             });
         }

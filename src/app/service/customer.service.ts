@@ -9,7 +9,7 @@ import IResponseModel from '../model/associated/response/response.interface';
   providedIn: 'root'
 })
 export class CustomerService {
-  private customerCollectionRepository: GenericCollectionRepository<ICustomerModel>;
+  protected customerCollectionRepository: GenericCollectionRepository<ICustomerModel>;
 
   constructor(private _firebaseConnectorService: FirebaseConnectorService) {
     this.customerCollectionRepository = new GenericCollectionRepository<ICustomerModel>('customer', this._firebaseConnectorService);
@@ -17,4 +17,6 @@ export class CustomerService {
 
   public create = async (entity: ICustomerModel) => await this.customerCollectionRepository.create(entity);
   public readMany = async () => await this.customerCollectionRepository.readMany();
+  public update = async (entity: ICustomerModel) => await this.customerCollectionRepository.update(entity);
+  public delete = async (ref: DocumentReference) => await this.customerCollectionRepository.delete(ref);
 }

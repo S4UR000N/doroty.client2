@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import ICustomerModel from '../../model/customer/customer.interface';
 import { CustomerService } from '../../service/customer.service';
-import { CreateCustomerDialog } from '../../dialog/create-customer/create-customer.dialog';
+import { CreateCustomerDialog } from '../../dialog/customer/create-customer/create-customer.dialog';
 import { AlertService } from '../../service/alert.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DocumentReference } from 'firebase/firestore';
+import ConfrimDialogModel from '../../model/dialog/confirm-dialog.model';
+import { ConfirmDialog } from '../../dialog/associated/confirm/confirm.dialog';
+import { UpdateCustomerDialog } from '../../dialog/customer/update-customer/update-customer.dialog';
 
 @Component({
   selector: 'app-record',
@@ -24,7 +28,7 @@ export class RecordComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  async openCreateDialog(): Promise<void> {
+  async create(): Promise<void> {
     this.dialog.open(CreateCustomerDialog).afterClosed().subscribe(success => {
       if (success) {
         this.alertService.showAlert('success', 'Klijent uspiješno kreiran.');
@@ -33,8 +37,41 @@ export class RecordComponent implements OnInit {
         });
       }
       else {
-        this.alertService.showAlert('fail', 'Klijent nije kreiran.');
+        this.alertService.showAlert('fail', 'Kreiranje nije uspijelo.');
       }
+    });
+  }
+
+  async update(customer: ICustomerModel): Promise<void> {
+    this.dialog.open(UpdateCustomerDialog, {data: customer}).afterClosed().subscribe(success => {
+      if (success) {
+        this.alertService.showAlert('success', 'Klijent uspiješno ažuriran.');
+        this.customerService.readMany().then(res => {
+          this.customers = res.result!;
+        });
+      }
+      else {
+        this.alertService.showAlert('fail', 'Ažuriranje nije uspijelo.');
+      }
+    });
+  }
+
+  async delete(ref: DocumentReference, index: number): Promise<void> {
+    let conf: MatDialogConfig<ConfrimDialogModel> = new MatDialogConfig();
+    conf.data = new ConfrimDialogModel('Obriši Klijenta', async () => {
+      let res = await this.customerService.delete(ref);
+      if (res.success) {
+        this.customers.splice(index, 1);
+        this.alertService.showAlert('success', 'Klijent uspiješno obrisan.');
+      }
+      else {
+        this.alertService.showAlert('fail', 'Brisanje nije uspijelo.');
+      }
+    });
+    const dialogRef = this.dialog.open(ConfirmDialog, conf);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 

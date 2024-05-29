@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CustomerService } from '../../service/customer.service';
-import ICustomerModel from '../../model/customer/customer.interface';
+import { CustomerService } from '../../../service/customer.service';
+import ICustomerModel from '../../../model/customer/customer.interface';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AngularMaterialFormModule } from '../../module/angular-material-form.module';
-import CustomerStatus from '../../enum/customer-status.enum';
+import { AngularMaterialFormModule } from '../../../module/angular-material-form.module';
+import CustomerStatus from '../../../enum/customer-status.enum';
 
 @Component({
   selector: 'app-create-customer',
