@@ -4,11 +4,11 @@ import { FirebaseConnectorService } from "./firebase-connector.service";
 import IResponseModel from "../model/associated/response/response.interface";
 
 class GenericCollectionRepository<T extends { ref?: DocumentReference }> extends BaseRepository {
-    constructor(private collectionName: string, private _firebaseConnectorService: FirebaseConnectorService) {
-        super(collectionName, _firebaseConnectorService);
+    constructor(private collectionPath: string, private firebaseConnectorService: FirebaseConnectorService) {
+        super(collectionPath, firebaseConnectorService);
     }
 
-    async create(entity: T, path: string = ''): Promise<IResponseModel<T>> {
+    async create(entity: T): Promise<IResponseModel<T>> {
         try {
             // let ref = path ? collection(this.collectionRef, path) : this.collectionRef;
             !entity.ref && delete entity.ref;

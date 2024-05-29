@@ -1,15 +1,19 @@
-<button type="button" class="btn btn-info mt-lg-2 ms-lg-2" (click)="openCreateDialog()">Dodaj Grupu</button>
+<button type="button" class="btn btn-info mt-lg-2 ms-lg-2" (click)="create()">Dodaj Grupu</button>
 
 <table class="table table-hover">
     <thead>
         <tr>
           <th>Grupa</th>
+          <th class="text-center">Ažuriraj</th>
+          <th class="text-center">Obriši</th>
         </tr>
     </thead>
     <tbody>
-        @for (group of groups; track $index) {
-            <tr (click)="redirect(group)">
-                <td>{{group.name}}</td>
+        @for (group of groups; let index = $index; track index) {
+            <tr>
+                <td (click)="redirect(group)">{{group.name}}</td>
+                <td class="text-center td-hover" (click)="update(group)"><i class="bi bi-pencil-square p-0 fs-5"></i></td>
+                <td class="text-center td-hover" (click)="delete(group.ref!, index)"><i class="bi bi-trash2 p-0 fs-5"></i></td>
             </tr>
         }
     </tbody>

@@ -68,15 +68,11 @@ export class RecordComponent implements OnInit {
         this.alertService.showAlert('fail', 'Brisanje nije uspijelo.');
       }
     });
-    const dialogRef = this.dialog.open(ConfirmDialog, conf);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    this.dialog.open(ConfirmDialog, conf);
   }
 
   async redirect(customer: ICustomerModel) {
-    this.router.navigate(['customer', customer.ref!.id], {relativeTo: this.route});
+    this.router.navigate(['customer', customer.ref!.id], {relativeTo: this.route, state: {path: customer.ref!.path}});
   }
 
   async ngOnInit(): Promise<void> {
