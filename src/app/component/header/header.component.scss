@@ -24,3 +24,9 @@ button.active-btn {
     color: #F2F4F3;
     outline: 0.15rem solid #119DA4;
 }
+
+@media (min-width: 2200px) {
+    img.logo {
+        width: 8rem;
+    }
+}

@@ -1,6 +1,10 @@
-<button type="button" class="btn btn-info mt-lg-2 ms-lg-2" (click)="create()">Dodaj Klijenta</button>
+<div class="my-4 mx-4 d-flex justify-content-between align-items-center">
+    <p class="font-xl-big">Popis klijenata</p>
+    <button type="button" class="btn cyan font-xl-medium" (click)="create()">+ Dodaj Klijenta</button>
+</div>
 
-<table class="table table-hover">
+<div class="table-responsive mx-4">
+    <table class="table table-hover font-xl-small">
     <thead>
         <tr>
           <th>Ime i prezime</th>
@@ -28,9 +32,11 @@
                 <td (click)="redirect(customer)">{{customer.description}}</td>
                 <td (click)="redirect(customer)">{{customer.alergies}}</td>
                 <td (click)="redirect(customer)">{{customer.status ? 'Aktivan' : 'Nije Aktivan'}}</td>
-                <td class="text-center td-hover" (click)="update(customer)"><i class="bi bi-pencil-square p-0 fs-5"></i></td>
-                <td class="text-center td-hover" (click)="delete(customer.ref!, index)"><i class="bi bi-trash2 p-0 fs-5"></i></td>
+                <td class="text-center td-hover" (click)="update(customer)"><i class="bi bi-pencil-square p-0 font-xl-large"></i></td>
+                <td class="text-center td-hover" (click)="delete(customer.ref!, index)"><i class="bi bi-trash2 p-0 font-xl-large"></i></td>
             </tr>
         }
     </tbody>
 </table>
+</div>
+
