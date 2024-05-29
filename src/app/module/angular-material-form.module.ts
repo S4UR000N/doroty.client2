@@ -7,8 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
-
-
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -21,7 +20,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatButtonModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatFormFieldModule,
@@ -31,7 +31,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatButtonModule,
     MatSelectModule,
     MatAutocompleteModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class AngularMaterialFormModule { }

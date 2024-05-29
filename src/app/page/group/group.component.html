@@ -1,0 +1,30 @@
+<button type="button" class="btn btn-info mt-lg-2 ms-lg-2" (click)="create()">Dodaj Grupu</button>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+          <th>Ime</th>
+          <th>Opis</th>
+          <th>Datum</th>
+          <th>Od</th>
+          <th>Do</th>
+          <th>Propisani Lijek</th>
+          <th class="text-center">Ažuriraj</th>
+          <th class="text-center">Obriši</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (appointment of appointments; let index = $index; track index) {
+            <tr>
+                <td>{{appointment.name}}</td>
+                <td>{{appointment.description}}</td>
+                <td>{{appointment.date}}</td>
+                <td>{{appointment.startTime}}</td>
+                <td>{{appointment.endTime}}</td>
+                <td>{{appointment.medicine}}</td>
+                <td class="text-center td-hover" (click)="update(appointment)"><i class="bi bi-pencil-square p-0 fs-5"></i></td>
+                <td class="text-center td-hover" (click)="delete(appointment.ref!, index)"><i class="bi bi-trash2 p-0 fs-5"></i></td>
+            </tr>
+        }
+    </tbody>
+</table>

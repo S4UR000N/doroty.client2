@@ -5,4 +5,4 @@ interface IGroupModel {
     name: string;
 }
 
-export default  IGroupModel;
+export default IGroupModel;
