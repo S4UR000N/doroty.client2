@@ -21,7 +21,7 @@
     </thead>
     <tbody>
         @for (customer of customers; let index = $index; track index) {
-            <tr class="font-xl-small">
+            <tr class="font-xl-small pointer">
                 <td (click)="redirect(customer)">{{customer.name}}</td>
                 <td (click)="redirect(customer)">{{customer.age}}</td>
                 <td (click)="redirect(customer)">{{customer.gender ? 'M' : 'Ž'}}</td>
