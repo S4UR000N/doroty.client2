@@ -5,13 +5,18 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppointmentSubService } from '../../../service/appointment-sub.service';
 import IAppointmentModel from '../../../model/customer/appointment.interface';
 import { MatIconModule } from '@angular/material/icon';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-create-appointment',
   standalone: true,
   imports: [MatDialogModule, AngularMaterialFormModule, MatIconModule],
   templateUrl: './create-appointment.dialog.html',
-  styleUrl: './create-appointment.dialog.scss'
+  styleUrl: './create-appointment.dialog.scss',
+  providers: [
+    {provide: DateAdapter, useClass: NativeDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS}
+  ]
 })
 export class CreateAppointmentDialog implements OnInit {
   public form: FormGroup = this.formBuilder.group({
