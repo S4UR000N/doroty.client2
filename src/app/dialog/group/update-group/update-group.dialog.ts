@@ -34,7 +34,7 @@ export class UpdateGroupDialog implements OnInit {
       ref: this.form.get('ref')?.value,
       name: this.form.get('name')?.value,
     };
-    let res = await this.groupSubService.create(model);
+    let res = await this.groupSubService.update(model);
     this.dialogRef.close(res.success);
   }
   async cancel(): Promise<void> {

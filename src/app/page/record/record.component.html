@@ -11,14 +11,12 @@
           <th>Opis</th>
           <th>Alergije</th>
           <th>Status</th>
-          <!-- <th class="text-center">Uredi</th> -->
           <th class="text-center">Ažuriraj</th>
           <th class="text-center">Obriši</th>
         </tr>
     </thead>
     <tbody>
         @for (customer of customers; let index = $index; track index) {
-            <!-- <tr (click)="redirect(customer)"> -->
             <tr>
                 <td (click)="redirect(customer)">{{customer.name}}</td>
                 <td (click)="redirect(customer)">{{customer.age}}</td>
