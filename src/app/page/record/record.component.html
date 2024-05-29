@@ -4,7 +4,7 @@
 </div>
 
 <div class="table-responsive mx-4">
-    <table class="table table-hover font-xl-small">
+    <table class="table table-hover">
     <thead>
         <tr>
           <th>Ime i prezime</th>
@@ -21,7 +21,7 @@
     </thead>
     <tbody>
         @for (customer of customers; let index = $index; track index) {
-            <tr>
+            <tr class="font-xl-small">
                 <td (click)="redirect(customer)">{{customer.name}}</td>
                 <td (click)="redirect(customer)">{{customer.age}}</td>
                 <td (click)="redirect(customer)">{{customer.gender ? 'M' : 'Ž'}}</td>
