@@ -2,8 +2,9 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
-html, body { height: 100%; 
-    font-size: 1rem;    
+html, body { 
+    height: 100%; 
+    font-size: 1.1rem;    
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 body { margin: 0;  } // background-color: #191c1c;
@@ -17,7 +18,7 @@ body { margin: 0;  } // background-color: #191c1c;
 .td-hover:hover {
     background-color: #ececec;
 }
-tr.pointer {
+tr.pointer, td.pointer {
   cursor: pointer;
 }
 @media (max-width: 2199px) {
@@ -25,7 +26,7 @@ tr.pointer {
     font-size: 0.9rem;
   }
   .font-xl-medium {
-    font-size: 1.1rem; 
+    font-size: 1rem; 
   }
   .font-xl-large {
     font-size: 1.5rem; 
@@ -40,7 +41,7 @@ tr.pointer {
       font-size: 1.5rem; /* 24px */
     }
     .font-xl-medium {
-      font-size: 1.75rem; /* 28px */
+      font-size: 1.7rem; /* 28px */
     }
     .font-xl-large {
       font-size: 2.5rem; /* 32px */
