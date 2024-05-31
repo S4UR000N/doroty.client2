@@ -3,7 +3,7 @@ import { Firestore } from "firebase/firestore/lite";
 import { FirebaseStorage } from "firebase/storage";
 import { FirebaseConnectorService } from "./firebase-connector.service";
 
-abstract class BaseRepository {
+abstract class BaseCollectionRepository {
     protected firestore: Firestore;
     protected storage: FirebaseStorage;
     public collectionRef: CollectionReference;
@@ -15,4 +15,4 @@ abstract class BaseRepository {
     }
 }
 
-export default BaseRepository;
+export default BaseCollectionRepository;

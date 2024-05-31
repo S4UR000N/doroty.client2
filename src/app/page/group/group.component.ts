@@ -10,6 +10,7 @@ import IAppointmentModel from '../../model/customer/appointment.interface';
 import { CreateAppointmentDialog } from '../../dialog/appointment/create-appointment/create-appointment.dialog';
 import { UpdateAppointmentDialog } from '../../dialog/appointment/update-appointment/update-appointment.dialog';
 import IGroupModel from '../../model/customer/group.interface';
+import { ObjectStorageService } from '../../service/object-storage.service';
 
 @Component({
   selector: 'app-group',
@@ -26,11 +27,13 @@ export class GroupComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private appointmentSubService: AppointmentSubService,
+    private objectStorageService: ObjectStorageService,
     private alertService: AlertService,
     public dialog: MatDialog
   ) {
     this.path = `customer/${this.route.snapshot.params['customerId']}/group/${this.route.snapshot.params['groupId']}/appointment`;
     console.log(this.path);
+    
   }
 
   async create(): Promise<void> {

@@ -1,9 +1,9 @@
 import { DocumentReference, DocumentSnapshot, addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
-import BaseRepository from "./base.repository";
 import { FirebaseConnectorService } from "./firebase-connector.service";
 import IResponseModel from "../model/associated/response/response.interface";
+import BaseCollectionRepository from "./base-collection.repository";
 
-class GenericCollectionRepository<T extends { ref?: DocumentReference }> extends BaseRepository {
+class GenericCollectionRepository<T extends { ref?: DocumentReference }> extends BaseCollectionRepository {
     constructor(private collectionPath: string, private firebaseConnectorService: FirebaseConnectorService) {
         super(collectionPath, firebaseConnectorService);
     }
