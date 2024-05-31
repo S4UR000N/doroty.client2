@@ -1,10 +1,10 @@
-import { DocumentReference } from "firebase/firestore";
+import { DocumentReference, Timestamp } from "firebase/firestore";
 
 interface IAppointmentModel {
     ref?: DocumentReference;
     name: string,
     description: string,
-    date: Date,
+    date: Date | string,
     startTime: Date,
     endTime: Date,
     medicine: string;

@@ -9,6 +9,7 @@ import { AppointmentSubService } from '../../service/appointment-sub.service';
 import IAppointmentModel from '../../model/customer/appointment.interface';
 import { CreateAppointmentDialog } from '../../dialog/appointment/create-appointment/create-appointment.dialog';
 import { UpdateAppointmentDialog } from '../../dialog/appointment/update-appointment/update-appointment.dialog';
+import IGroupModel from '../../model/customer/group.interface';
 
 @Component({
   selector: 'app-group',
@@ -28,7 +29,8 @@ export class GroupComponent implements OnInit {
     private alertService: AlertService,
     public dialog: MatDialog
   ) {
-    this.path = `${(this.router.getCurrentNavigation()?.extras.state!['path'])}/appointment`;
+    this.path = `customer/${this.route.snapshot.params['customerId']}/group/${this.route.snapshot.params['groupId']}/appointment`;
+    console.log(this.path);
   }
 
   async create(): Promise<void> {
@@ -46,7 +48,7 @@ export class GroupComponent implements OnInit {
   }
 
   async update(appointment: IAppointmentModel): Promise<void> {
-    this.dialog.open(UpdateAppointmentDialog, {data: {groupModel: appointment, path: this.path}}).afterClosed().subscribe(success => {
+    this.dialog.open(UpdateAppointmentDialog, {data: {appointmentModel: appointment, path: this.path}}).afterClosed().subscribe(success => {
       if (success) {
         this.alertService.showAlert('success', 'Termin uspiješno ažuriran.');
         this.appointmentSubService.readMany().then(res => {
@@ -72,6 +74,10 @@ export class GroupComponent implements OnInit {
       }
     });
     this.dialog.open(ConfirmDialog, conf);
+  }
+
+  async redirect(appointment: IAppointmentModel) {
+    this.router.navigate(['appointment', appointment.ref!.id], {relativeTo: this.route});
   }
 
   async ngOnInit(): Promise<void> {

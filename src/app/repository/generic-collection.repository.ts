@@ -88,14 +88,12 @@ class GenericCollectionRepository<T extends { ref?: DocumentReference }> extends
     }
     async update(entity: T): Promise<IResponseModel<T>> {
         try {
-            console.log(entity.ref!);
             await updateDoc(entity.ref!, entity);
             return ({
                 success: true
             });
         }
         catch (err) {
-            console.log(err);
             return ({
                 errors: [(err as Error).message],
                 success: false

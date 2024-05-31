@@ -72,7 +72,7 @@ export class RecordComponent implements OnInit {
   }
 
   async redirect(customer: ICustomerModel) {
-    this.router.navigate(['customer', customer.ref!.id], {relativeTo: this.route, state: {path: customer.ref!.path}});
+    this.router.navigate(['customer', customer.ref!.id], {relativeTo: this.route});
   }
 
   async ngOnInit(): Promise<void> {

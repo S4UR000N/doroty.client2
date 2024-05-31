@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Dodaj Grupu</h2>
+<h2 mat-dialog-title>Dodaj Termin</h2>
 <mat-dialog-content class="custom-scrollbar">
     <form [formGroup]="form">
         <div class="row justify-content-center">
@@ -20,7 +20,7 @@
         <div class="row justify-content-center">
             <div class="col text-center">
                 <mat-form-field style="width: 212px;">
-                    <input matInput [matDatepicker]="picker" placeholder="Izaberi Datum">
+                    <input matInput [matDatepicker]="picker" placeholder="Izaberi Datum" (dateInput)="selectDate($event)">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker touchUi></mat-datepicker>
                 </mat-form-field>

@@ -28,7 +28,7 @@ export class CustomerComponent implements OnInit {
     private alertService: AlertService,
     public dialog: MatDialog
   ) {
-    this.path = `${(this.router.getCurrentNavigation()?.extras.state!['path'])}/group`;
+    this.path = `customer/${this.route.snapshot.params['customerId']}/group`;
   }
 
   async create(): Promise<void> {
@@ -75,7 +75,7 @@ export class CustomerComponent implements OnInit {
   }
 
   async redirect(group: IGroupModel) {
-    this.router.navigate(['group', group.ref!.id], {relativeTo: this.route, state: {path: group.ref!.path}});
+    this.router.navigate(['group', group.ref!.id], {relativeTo: this.route});
   }
 
   async ngOnInit(): Promise<void> {

@@ -9,8 +9,6 @@ abstract class SubCollection<T extends { ref?: DocumentReference }> implements I
     constructor(private _firebaseConnectorService: FirebaseConnectorService) {}
 
     public Initialize(_collectionPath: string): void {
-        console.log(_collectionPath);
-        
         this.subCollectionRepository = new GenericCollectionRepository<T>(_collectionPath, this._firebaseConnectorService);
     }
     

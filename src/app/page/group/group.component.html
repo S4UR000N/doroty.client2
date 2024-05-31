@@ -1,11 +1,11 @@
-<button type="button" class="btn btn-info mt-lg-2 ms-lg-2" (click)="create()">Dodaj Grupu</button>
+<button type="button" class="btn btn-info mt-lg-2 ms-lg-2" (click)="create()">Dodaj Termin</button>
 
 <table class="table table-hover">
     <thead>
         <tr>
           <th>Ime</th>
           <th>Opis</th>
-          <th>Datum</th>
+          <th>Datum:mm/dd/yyyy</th>
           <th>Od</th>
           <th>Do</th>
           <th>Propisani Lijek</th>
@@ -16,15 +16,49 @@
     <tbody>
         @for (appointment of appointments; let index = $index; track index) {
             <tr>
-                <td>{{appointment.name}}</td>
-                <td>{{appointment.description}}</td>
-                <td>{{appointment.date}}</td>
-                <td>{{appointment.startTime}}</td>
-                <td>{{appointment.endTime}}</td>
-                <td>{{appointment.medicine}}</td>
+                <td (click)="redirect(appointment)">{{appointment.name}}</td>
+                <td (click)="redirect(appointment)">{{appointment.description}}</td>
+                <td (click)="redirect(appointment)">{{appointment.date}}</td>
+                <td (click)="redirect(appointment)">{{appointment.startTime}}</td>
+                <td (click)="redirect(appointment)">{{appointment.endTime}}</td>
+                <td (click)="redirect(appointment)">{{appointment.medicine}}</td>
                 <td class="text-center td-hover" (click)="update(appointment)"><i class="bi bi-pencil-square p-0 fs-5"></i></td>
                 <td class="text-center td-hover" (click)="delete(appointment.ref!, index)"><i class="bi bi-trash2 p-0 fs-5"></i></td>
             </tr>
         }
     </tbody>
 </table>
+
+
+<button type="button" class="btn btn-info mt-lg-2 ms-lg-2" (click)="create()">Dodaj Sliku</button>
+
+<div class="container-fluid mt-5">
+<div class="row justify-content-center">
+    <div id="carouselExampleIndicators" class="carousel slide col-8" data-bs-interval="false">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://www.operationkindness.org/wp-content/uploads/blog-kitten-nursery-operation-kindness.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="https://www.operationkindness.org/wp-content/uploads/blog-kitten-nursery-operation-kindness.jpg." class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="https://www.operationkindness.org/wp-content/uploads/blog-kitten-nursery-operation-kindness.jpg" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+</div>
+</div>
