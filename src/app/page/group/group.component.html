@@ -1,8 +1,13 @@
-<button type="button" class="btn btn-info mt-lg-2 ms-lg-2" (click)="create()">Dodaj Termin</button>
 
-<table class="table table-hover">
+<div class="my-4 mx-4 d-flex justify-content-between align-items-center">
+  <p class="font-xl-big">Popis termina</p>
+  <button type="button" class="btn cyan mt-lg-2 ms-lg-2 font-xl-medium" (click)="create()">+ Dodaj Termin</button>
+</div>
+
+<div class="table-responsive mx-4">
+  <table class="table table-hover">
     <thead>
-        <tr>
+        <tr class="font-xl-medium">
           <th>Ime</th>
           <th>Opis</th>
           <th>Datum:mm/dd/yyyy</th>
@@ -15,26 +20,28 @@
     </thead>
     <tbody>
         @for (appointment of appointments; let index = $index; track index) {
-            <tr>
+            <tr class="font-xl-medium">
                 <td (click)="redirect(appointment)">{{appointment.name}}</td>
                 <td (click)="redirect(appointment)">{{appointment.description}}</td>
                 <td (click)="redirect(appointment)">{{appointment.date}}</td>
                 <td (click)="redirect(appointment)">{{appointment.startTime}}</td>
                 <td (click)="redirect(appointment)">{{appointment.endTime}}</td>
                 <td (click)="redirect(appointment)">{{appointment.medicine}}</td>
-                <td class="text-center td-hover" (click)="update(appointment)"><i class="bi bi-pencil-square p-0 fs-5"></i></td>
-                <td class="text-center td-hover" (click)="delete(appointment.ref!, index)"><i class="bi bi-trash2 p-0 fs-5"></i></td>
+                <td class="text-center td-hover pointer" (click)="update(appointment)"><i class="bi bi-pencil-square p-0 font-xl-large"></i></td>
+                <td class="text-center td-hover pointer" (click)="delete(appointment.ref!, index)"><i class="bi bi-trash2 p-0 font-xl-large"></i></td>
             </tr>
         }
     </tbody>
 </table>
+</div>
 
+<div class="my-4 mx-4">
+  <button type="button" class="btn cyan font-xl-medium" (click)="create()">+ Dodaj Sliku</button>
+</div>
 
-<button type="button" class="btn btn-info mt-lg-2 ms-lg-2" (click)="create()">Dodaj Sliku</button>
-
-<div class="container-fluid mt-5">
+<div class="container-fluid">
 <div class="row justify-content-center">
-    <div id="carouselExampleIndicators" class="carousel slide col-8" data-bs-interval="false">
+    <div id="carouselExampleIndicators" class="carousel slide col-8 my-5" data-bs-interval="false">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>

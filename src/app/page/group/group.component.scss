@@ -1,0 +1,17 @@
+p, table th {
+    color: #119DA4;
+}
+
+button.cyan {
+    background-color: #117DA4 ;
+    color: white;    
+    text-decoration: none;
+    outline: 0.15rem solid #117DA4;
+    font-weight: 500;
+    transition: background-color 0.3s ease, outline 0.3s ease, color 0.3s ease;
+}
+
+button.cyan:hover { 
+    background-color: #119DA4;
+    outline: 0.15rem solid #0F7A89;
+}
