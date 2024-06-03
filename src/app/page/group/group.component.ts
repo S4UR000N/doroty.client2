@@ -9,8 +9,8 @@ import { AppointmentSubService } from '../../service/appointment-sub.service';
 import IAppointmentModel from '../../model/customer/appointment.interface';
 import { CreateAppointmentDialog } from '../../dialog/appointment/create-appointment/create-appointment.dialog';
 import { UpdateAppointmentDialog } from '../../dialog/appointment/update-appointment/update-appointment.dialog';
-import IGroupModel from '../../model/customer/group.interface';
 import { ObjectStorageService } from '../../service/object-storage.service';
+import IImageModel from '../../model/customer/image.interface';
 
 @Component({
   selector: 'app-group',
@@ -21,7 +21,9 @@ import { ObjectStorageService } from '../../service/object-storage.service';
 })
 export class GroupComponent implements OnInit {
   public path: string;
+  public storagePath: string;
   public appointments: IAppointmentModel[] = [];
+  public images: IImageModel[] = [];
 
   public constructor(
     private route: ActivatedRoute,
@@ -32,8 +34,7 @@ export class GroupComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.path = `customer/${this.route.snapshot.params['customerId']}/group/${this.route.snapshot.params['groupId']}/appointment`;
-    console.log(this.path);
-    
+    this.storagePath = `${this.route.snapshot.params['customerId']}/${this.route.snapshot.params['groupId']}`;
   }
 
   async create(): Promise<void> {
@@ -79,12 +80,51 @@ export class GroupComponent implements OnInit {
     this.dialog.open(ConfirmDialog, conf);
   }
 
-  async redirect(appointment: IAppointmentModel) {
-    this.router.navigate(['appointment', appointment.ref!.id], {relativeTo: this.route});
+  async createImage(event: Event): Promise<void> {
+    let files = (event.target as HTMLInputElement).files;
+    if (!files || files?.length < 1) {
+      this.alertService.showAlert('fail', 'Niti jedna slika nije dodana.');
+    }
+    else if (files?.length! > 5) {
+      this.alertService.showAlert('fail', 'Limit je 5 slika odjednom.');
+    }
+    else {
+      let count = 0;
+      let failedCount = 0;
+      let hasFailed = false;
+      for (let i = 0; i < files?.length!; i++) {
+        let res = await this.objectStorageService.create(files.item(i)!);
+        if (res.success) {
+          count++;
+        }
+        else {
+          hasFailed = true;
+          failedCount = files?.length! - count; 
+          break;
+        }
+      }
+
+      if (hasFailed) {
+        if (count > 0) {
+          this.images = (await this.objectStorageService.readMany()).result!;
+          this.alertService.showAlert('success', `Slike uspiješno dodane * ${count}.`);
+          setTimeout(() => {this.alertService.showAlert('fail', `Slike nisu dodane * ${failedCount}.`)}, 3000);
+        }
+        else {
+          this.alertService.showAlert('fail', 'Niti jedna slika nije dodana.');
+        }
+      }
+      else {
+        this.images = (await this.objectStorageService.readMany()).result!;
+        this.alertService.showAlert('success', `Slike uspiješno dodane * ${count}.`);
+      }
+    }
   }
 
   async ngOnInit(): Promise<void> {
-    this.appointmentSubService.Initialize(this.path)
+    this.appointmentSubService.Initialize(this.path);
+    this.objectStorageService.Initialize(this.storagePath);
     this.appointments = (await this.appointmentSubService.readMany()).result!;
+    this.images = (await this.objectStorageService.readMany()).result!;
   }
 }
