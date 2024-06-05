@@ -11,11 +11,12 @@ import { CreateAppointmentDialog } from '../../dialog/appointment/create-appoint
 import { UpdateAppointmentDialog } from '../../dialog/appointment/update-appointment/update-appointment.dialog';
 import { ObjectStorageService } from '../../service/object-storage.service';
 import IImageModel from '../../model/customer/image.interface';
+import { CustomerFragmentComponent } from '../../component/customer-fragment/customer-fragment.component';
 
 @Component({
   selector: 'app-group',
   standalone: true,
-  imports: [],
+  imports: [CustomerFragmentComponent],
   templateUrl: './group.component.html',
   styleUrl: './group.component.scss'
 })
@@ -27,7 +28,6 @@ export class GroupComponent implements OnInit {
 
   public constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private appointmentSubService: AppointmentSubService,
     private objectStorageService: ObjectStorageService,
     private alertService: AlertService,

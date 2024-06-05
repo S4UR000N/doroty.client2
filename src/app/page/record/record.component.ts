@@ -75,6 +75,10 @@ export class RecordComponent implements OnInit {
     this.router.navigate(['customer', customer.ref!.id], {relativeTo: this.route});
   }
 
+  calculateAge(yearOfBirth: any) {
+    return (new Date().getFullYear() - parseInt(yearOfBirth));
+  }
+
   async ngOnInit(): Promise<void> {
     this.customers = (await this.customerService.readMany()).result!;
   }

@@ -8,6 +8,9 @@ class GenericCollectionRepository<T extends { ref?: DocumentReference }> extends
         super(collectionPath, firebaseConnectorService);
     }
 
+    async createRef(id: string): Promise<DocumentReference> {
+        return doc(this.collectionRef, id);
+    }
     async create(entity: T): Promise<IResponseModel<T>> {
         try {
             // let ref = path ? collection(this.collectionRef, path) : this.collectionRef;

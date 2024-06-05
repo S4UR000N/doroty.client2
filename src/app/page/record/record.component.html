@@ -23,7 +23,7 @@
         @for (customer of customers; let index = $index; track index) {
             <tr class="font-xl-medium pointer">
                 <td (click)="redirect(customer)">{{customer.name}}</td>
-                <td (click)="redirect(customer)">{{customer.age}}</td>
+                <td (click)="redirect(customer)">{{calculateAge(customer.age)}}</td>
                 <td (click)="redirect(customer)">{{customer.gender ? 'M' : 'Ž'}}</td>
                 <td (click)="redirect(customer)">{{customer.phone}}</td>
                 <td (click)="redirect(customer)">{{customer.address}}</td>

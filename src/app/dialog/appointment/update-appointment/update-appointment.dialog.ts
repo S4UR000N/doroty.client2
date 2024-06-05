@@ -20,13 +20,12 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapt
   ]
 })
 export class UpdateAppointmentDialog implements OnInit {
+  public date: any = '';
   public form: FormGroup = this.formBuilder.group({
     ref: [''],
     name: [''],
     description: [''],
     date: [''],
-    startTime: [''],
-    endTime: [''],
     medicine: ['']
   });
   
@@ -38,6 +37,7 @@ export class UpdateAppointmentDialog implements OnInit {
   ) {
     this.form.setValue(data.appointmentModel);
     this.form.patchValue({date: new Date(data.appointmentModel.date)})
+    this.date = data.appointmentModel.date;
   }
 
   
@@ -48,11 +48,9 @@ export class UpdateAppointmentDialog implements OnInit {
       name: this.form.get('name')?.value,
       description: this.form.get('description')?.value,
       date: this.form.get('date')?.value,
-      startTime: this.form.get('startTime')?.value,
-      endTime: this.form.get('endTime')?.value,
       medicine: this.form.get('medicine')?.value
     };
-    let res = await this.appointmentSubService.create(model);
+    let res = await this.appointmentSubService.update(model);
     this.dialogRef.close(res.success);
   }
   async cancel(): Promise<void> {
@@ -60,9 +58,11 @@ export class UpdateAppointmentDialog implements OnInit {
   }
 
   async selectDate(event: MatDatepickerInputEvent<any, any>) {
+    console.log("date change");
     let date = new Date(event.value);
     let dateString = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`;
     this.form.patchValue({date: dateString});
+    this.date = dateString;
   }
 
   async ngOnInit(): Promise<void> {

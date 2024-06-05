@@ -4,9 +4,7 @@ interface IAppointmentModel {
     ref?: DocumentReference;
     name: string,
     description: string,
-    date: Date | string,
-    startTime: Date,
-    endTime: Date,
+    date: Date | string
     medicine: string;
 }
 

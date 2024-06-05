@@ -24,8 +24,6 @@ export class CreateAppointmentDialog implements OnInit {
     name: [''],
     description: [''],
     date: [''],
-    startTime: [''],
-    endTime: [''],
     medicine: ['']
   });
   
@@ -43,8 +41,6 @@ export class CreateAppointmentDialog implements OnInit {
       name: this.form.get('name')?.value,
       description: this.form.get('description')?.value,
       date: this.form.get('date')?.value,
-      startTime: this.form.get('startTime')?.value,
-      endTime: this.form.get('endTime')?.value,
       medicine: this.form.get('medicine')?.value
     };
     

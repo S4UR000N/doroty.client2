@@ -10,6 +10,6 @@ export const routes: Routes = [
     { path: 'record',  component: RecordComponent, pathMatch: 'full' },
     { path: 'record/customer/:customerId',  component: CustomerComponent, pathMatch: 'full' },
     { path: 'record/customer/:customerId/group/:groupId',  component: GroupComponent, pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent, pathMatch: 'full' },
     { path: '**', component: NotFoundComponent },
 ];

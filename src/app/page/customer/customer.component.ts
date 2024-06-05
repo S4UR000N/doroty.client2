@@ -9,11 +9,12 @@ import { UpdateGroupDialog } from '../../dialog/group/update-group/update-group.
 import { DocumentReference } from 'firebase/firestore';
 import ConfrimDialogModel from '../../model/dialog/confirm-dialog.model';
 import { ConfirmDialog } from '../../dialog/associated/confirm/confirm.dialog';
+import { CustomerFragmentComponent } from '../../component/customer-fragment/customer-fragment.component';
 
 @Component({
   selector: 'app-customer',
   standalone: true,
-  imports: [],
+  imports: [CustomerFragmentComponent],
   templateUrl: './customer.component.html',
   styleUrl: './customer.component.scss'
 })
