@@ -21,6 +21,27 @@ body { margin: 0;  } // background-color: #191c1c;
 tr.pointer, td.pointer {
   cursor: pointer;
 }
+
+p {
+  color: #119DA4;
+}
+
+button.blue, label.blue {
+  background-color: #117DA4 ;
+  color: white;    
+  text-decoration: none;
+  outline: 0.15rem solid #117DA4;
+  font-weight: 500;
+  transition: background-color 0.3s ease, outline 0.3s ease, color 0.3s ease;
+}
+
+button.blue:hover, label.blue:hover { 
+  background-color: #119DA4;
+  outline: 0.15rem solid #0F7A89;
+  color: white;    
+}
+
+
 @media (max-width: 2199px) {
   .font-xl-small {
     font-size: 0.9rem;

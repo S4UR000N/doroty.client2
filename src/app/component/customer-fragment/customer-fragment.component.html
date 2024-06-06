@@ -1,15 +1,19 @@
-<div class="container-fluid">
-    <div class="row"><div class="col fs-4">{{customer.name}}</div></div>
-    <div class="row">
-        <div class="col-1">Dob: {{calculateAge(customer.age)}}</div>
-        <div class="col-1">Spol: {{customer.gender ? 'M' : 'Ž' }}</div>
-        <div class="col-3">Telefon: {{customer.phone}}</div>
+<div class="container-fluid my-2">
+    <div class="row mx-1 my-2 cyan"><div class="col font-xl-large">{{customer.name}}</div></div>
+    <div class="row mx-2 my-2 font-xl-medium grey">
+        <div class="col-2">Dob: {{calculateAge(customer.age)}}</div>
+        <div class="col-8">Status: {{customer.status ? 'Aktivan' : 'Nije Aktivan'}}</div>
+
     </div>
-    <div class="row">
-        <div class="col-2">Status: {{customer.status ? 'Aktivan' : 'Nije Aktivan'}}</div>
-        <div class="col-10">Alergije: {{customer.alergies}}</div>
+    <div class="row mx-2 my-2 font-xl-medium grey">        
+        <div class="col-2">Spol: {{customer.gender ? 'M' : 'Ž' }}</div>
+        <div class="col-8">Alergije: {{customer.alergies}}</div>
+
     </div>
-    <div class="row">
-        <div class="col-12">Opis: {{customer.description}}</div>
+    <div class="row mx-2 font-xl-medium grey">        
+        <div class="col-2">Telefon: {{customer.phone}}</div>        
+    </div>
+    <div class="row mx-2 font-xl-medium grey">        
+        <div class="col-10 my-2">Opis: {{customer.description}}</div>
     </div>
 </div>
