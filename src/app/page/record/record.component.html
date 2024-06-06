@@ -9,7 +9,7 @@
         <form [formGroup]="form">
             <mat-form-field class="w-100">
                 <mat-label>Ime i prezime <i class="bi bi-search"></i></mat-label>
-                <input matInput required type="text" [formControlName]="'name'" (input)="searchCustomers()" [matAutocomplete]="auto"/>
+                <input matInput type="text" [formControlName]="'name'" (input)="searchCustomers()" [matAutocomplete]="auto"/>
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayCustomer" (optionSelected)="optionSelected($event)">
                     @if (options.length > 0) {
                         <mat-option [value]="options[0]">{{options[0].name}}</mat-option>
