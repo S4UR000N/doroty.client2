@@ -12,11 +12,12 @@ import { UpdateAppointmentDialog } from '../../dialog/appointment/update-appoint
 import { ObjectStorageService } from '../../service/object-storage.service';
 import IImageModel from '../../model/customer/image.interface';
 import { CustomerFragmentComponent } from '../../component/customer-fragment/customer-fragment.component';
+import { BackComponent } from '../../component/back/back.component';
 
 @Component({
   selector: 'app-group',
   standalone: true,
-  imports: [CustomerFragmentComponent],
+  imports: [CustomerFragmentComponent, BackComponent],
   templateUrl: './group.component.html',
   styleUrl: './group.component.scss'
 })

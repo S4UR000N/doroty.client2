@@ -85,7 +85,6 @@ export class RecordComponent implements OnInit {
 
   async searchCustomers() {
     this.options = (await this.customerService.readQuery(this.form.get('name')?.value)).result!;
-    console.log(this.options);
   }
 
   optionSelected(event: MatAutocompleteSelectedEvent) {
