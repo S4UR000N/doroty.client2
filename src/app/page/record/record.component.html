@@ -3,6 +3,44 @@
     <button type="button" class="btn cyan font-xl-medium" (click)="create()">+ Dodaj Klijenta</button>
 </div>
 
+<div class="container-fluid">
+<div class="row justify-content-start">
+    <div class="col-3 text-center">
+        <form [formGroup]="form">
+            <mat-form-field class="w-100">
+                <mat-label>Ime i prezime <i class="bi bi-search"></i></mat-label>
+                <input matInput required type="text" [formControlName]="'name'" (input)="searchCustomers()" [matAutocomplete]="auto"/>
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayCustomer" (optionSelected)="optionSelected($event)">
+                    @if (options.length > 0) {
+                        <mat-option [value]="options[0]">{{options[0].name}}</mat-option>
+                    }
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+    </div>
+    
+    <!-- <div class="col-2 text-center">
+        <mat-form-field>
+            <mat-label>Sortiraj Datum</mat-label>
+            <mat-select required>
+                <mat-option [value]="1">Novo</mat-option>
+                <mat-option [value]="0">Staro</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-2 text-center">
+        <mat-form-field class="ms-5">
+            <mat-label>Filtriraj Status</mat-label>
+            <mat-select required>
+                <mat-option [value]="2">Svi</mat-option>
+                <mat-option [value]="1">Aktivan</mat-option>
+                <mat-option [value]="0">Nije Aktivan</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div> -->
+</div>
+</div>
+
 <div class="table-responsive mx-4">
     <table class="table table-hover">
     <thead>

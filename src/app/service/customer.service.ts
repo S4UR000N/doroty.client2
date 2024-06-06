@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirebaseConnectorService } from '../repository/firebase-connector.service';
 import GenericCollectionRepository from '../repository/generic-collection.repository';
 import ICustomerModel from '../model/customer/customer.interface';
-import { DocumentReference } from 'firebase/firestore';
+import { DocumentReference, where } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class CustomerService {
 
   public create = async (entity: ICustomerModel) => await this.customerCollectionRepository.create(entity);
   public readOneById = async (id: string) => await this.customerCollectionRepository.readOne(await this.customerCollectionRepository.createRef(id));
+  public readQuery = async (customerName: string) => await this.customerCollectionRepository.readQuery(where("name", "==", customerName));
   public readMany = async () => await this.customerCollectionRepository.readMany();
   public update = async (entity: ICustomerModel) => await this.customerCollectionRepository.update(entity);
   public delete = async (ref: DocumentReference) => await this.customerCollectionRepository.delete(ref);

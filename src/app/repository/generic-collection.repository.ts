@@ -1,4 +1,4 @@
-import { DocumentReference, DocumentSnapshot, addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import { DocumentReference, DocumentSnapshot, QueryFieldFilterConstraint, addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc } from "firebase/firestore";
 import { FirebaseConnectorService } from "./firebase-connector.service";
 import IResponseModel from "../model/associated/response/response.interface";
 import BaseCollectionRepository from "./base-collection.repository";
@@ -60,6 +60,24 @@ class GenericCollectionRepository<T extends { ref?: DocumentReference }> extends
     }
     async readOneSub<S extends T>(ref: DocumentReference): Promise<IResponseModel<S>> {
         return (await this.readOne(ref) as IResponseModel<S>);
+    }
+    async readQuery(constaint: QueryFieldFilterConstraint): Promise<IResponseModel<T[]>> {
+        try {
+            let docs: T[] = [];
+            (await getDocs(query(this.collectionRef, constaint))).forEach(doc => docs.push({ ...(doc.data() as T), ref: doc.ref }));
+            let res: IResponseModel<T[]> = {
+                result: docs,
+                success: true
+            };
+            return res;
+        }
+        catch (err) {
+            let res: IResponseModel<T[]> = {
+                errors: [(err as Error).message],
+                success: false
+            };
+            return res;
+        }
     }
     async readMany(): Promise<IResponseModel<T[]>> {
         try {

@@ -9,20 +9,28 @@ import { DocumentReference } from 'firebase/firestore';
 import ConfrimDialogModel from '../../model/dialog/confirm-dialog.model';
 import { ConfirmDialog } from '../../dialog/associated/confirm/confirm.dialog';
 import { UpdateCustomerDialog } from '../../dialog/customer/update-customer/update-customer.dialog';
+import { AngularMaterialFormModule } from '../../module/angular-material-form.module';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-record',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, AngularMaterialFormModule],
   templateUrl: './record.component.html',
   styleUrl: './record.component.scss'
 })
 export class RecordComponent implements OnInit {
+  public form: FormGroup = this.formBuilder.group({
+    name: ['']
+  });
   public customers: ICustomerModel[] = [];
+  public options: ICustomerModel[] = [];
 
   public constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private formBuilder: FormBuilder,
     private customerService: CustomerService,
     private alertService: AlertService,
     public dialog: MatDialog
@@ -73,6 +81,19 @@ export class RecordComponent implements OnInit {
 
   async redirect(customer: ICustomerModel) {
     this.router.navigate(['customer', customer.ref!.id], {relativeTo: this.route});
+  }
+
+  async searchCustomers() {
+    this.options = (await this.customerService.readQuery(this.form.get('name')?.value)).result!;
+    console.log(this.options);
+  }
+
+  optionSelected(event: MatAutocompleteSelectedEvent) {
+    this.customers = this.options;
+  }
+
+  displayCustomer(customer: ICustomerModel): string {
+    return customer.name ? customer.name : '';
   }
 
   calculateAge(yearOfBirth: any) {
