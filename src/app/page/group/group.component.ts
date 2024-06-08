@@ -13,15 +13,13 @@ import { ObjectStorageService } from '../../service/object-storage.service';
 import IImageModel from '../../model/customer/image.interface';
 import { CustomerFragmentComponent } from '../../component/customer-fragment/customer-fragment.component';
 import { BackComponent } from '../../component/back/back.component';
-import { DatePipe } from '@angular/common';
 import moment from 'moment';
 import { AngularMaterialFormModule } from '../../module/angular-material-form.module';
-import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-group',
   standalone: true,
-  imports: [CustomerFragmentComponent, BackComponent, DatePipe, AngularMaterialFormModule],
+  imports: [CustomerFragmentComponent, BackComponent, AngularMaterialFormModule],
   templateUrl: './group.component.html',
   styleUrl: './group.component.scss'
 })
@@ -30,13 +28,13 @@ export class GroupComponent implements OnInit {
   public storagePath: string;
   public appointments: IAppointmentModel[] = [];
   public images: IImageModel[] = [];
+  public imageIndex: number = 0;
   public dateSort: number = 1;
 
   public constructor(
     private route: ActivatedRoute,
     private appointmentSubService: AppointmentSubService,
     private objectStorageService: ObjectStorageService,
-    private datePipe: DatePipe,
     private alertService: AlertService,
     public dialog: MatDialog
   ) {
@@ -130,6 +128,24 @@ export class GroupComponent implements OnInit {
     }
   }
 
+  async deleteImage() {
+    console.log("DELETE IMAGE");
+    console.log(this.imageIndex);
+    let conf: MatDialogConfig<ConfrimDialogModel> = new MatDialogConfig();
+    conf.data = new ConfrimDialogModel('Obriši Sliku', async () => {
+      let res = await this.objectStorageService.delete(this.images[this.imageIndex].ref!);
+      if (res.success) {
+        console.log(this.imageIndex);
+        this.images.splice(this.imageIndex, 1);
+        this.alertService.showAlert('success', 'Slika uspiješno obrisana.');
+      }
+      else {
+        this.alertService.showAlert('fail', 'Brisanje nije uspijelo.');
+      }
+    });
+    this.dialog.open(ConfirmDialog, conf);
+  }
+
   asDate(date: any): Date | string {
     if (date) {
       if (date.seconds) {
@@ -183,6 +199,19 @@ export class GroupComponent implements OnInit {
     else {
       this.appointments.sort((a, b) => this.sortOldToNew(a, b));
     }
+  }
+
+  setImageIndex(index: number) {
+    this.imageIndex = index;
+  }
+  incrementImageIndex() {
+    this.imageIndex++;
+  }
+  decrementImageIndex() {
+    this.imageIndex--;
+  }
+  print(x: any) {
+    console.log(x);
   }
 
   async ngOnInit(): Promise<void> {

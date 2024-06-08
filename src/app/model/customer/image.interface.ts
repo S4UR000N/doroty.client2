@@ -1,7 +1,7 @@
-import { DocumentReference } from "firebase/firestore";
+import { StorageReference } from "firebase/storage";
 
 interface IImageModel {
-    ref?: DocumentReference;
+    ref?: StorageReference;
     name: string;
     url: string;
 }

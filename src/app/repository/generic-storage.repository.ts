@@ -1,6 +1,6 @@
 import { DocumentReference } from "firebase/firestore";
 import { FirebaseConnectorService } from "./firebase-connector.service";
-import { getStorage, ref, listAll, StorageReference, getDownloadURL, uploadBytes } from "firebase/storage";
+import { getStorage, ref, listAll, StorageReference, getDownloadURL, uploadBytes, deleteObject } from "firebase/storage";
 import BaseStorageRepository from "./base-storage.repository";
 import IResponseModel from "../model/associated/response/response.interface";
 import { NanoIdService } from "../service/nano-id.service";
@@ -31,6 +31,20 @@ class GenericStorageRepository<T extends { ref?: StorageReference, name: string,
         try {
             return ({
                 result: (await (await listAll(this.storageReference!)).items.reduce(async (asyncAcc, obj) => ((await asyncAcc).push({ref: obj, url: await getDownloadURL(obj)} as T), asyncAcc), Promise.resolve([] as T[]))),
+                success: true
+            });
+        }
+        catch (err) {
+            return ({
+                errors: [(err as Error).message],
+                success: false
+            });
+        }
+    }
+    async delete(ref: StorageReference): Promise<IResponseModel<any>> {
+        try {
+            await deleteObject(ref);
+            return ({
                 success: true
             });
         }

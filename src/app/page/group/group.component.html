@@ -52,22 +52,25 @@
 <div class="my-4 mx-4">
   <label for="fileInput" class="btn blue font-xl-medium">+ Dodaj Sliku</label>
   <input id="fileInput" type="file" accept="image/*" class="d-none" (change)="createImage($event)" multiple/>
+
+  <button type="button" class="btn btn-danger float-end" (click)="deleteImage()">- Obriši Sliku</button>
 </div>
 
 <div class="container-fluid">
 <div class="row justify-content-center">
     <div id="carouselExampleIndicators" class="carousel slide col-6 my-5" data-bs-interval="false">
         <div class="carousel-indicators">
-          @for (image of images; let index = $index; let first = $first; track index) {
+          @for (image of images; let index = $index; let first = $first; track image.ref) {
             @if (first) {
-              <button type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]='index' class="active"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]='index' class="active" (click)="setImageIndex(index)"></button>
             }
             @else {
-              <button type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]='index'></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]='index' (click)="setImageIndex(index)"></button>
             }
           }
         </div>
         <div class="carousel-inner">
+          {{print(images)}}
           @for (image of images; let index = $index; let first = $first; track index) {
             @if (first) {
               <div class="carousel-item active">
@@ -80,11 +83,11 @@
               </div>
             }
           }
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" (click)="decrementImageIndex()">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" (click)="incrementImageIndex()">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>

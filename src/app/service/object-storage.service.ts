@@ -4,6 +4,7 @@ import GenericStorageRepository from '../repository/generic-storage.repository';
 import IResponseModel from '../model/associated/response/response.interface';
 import IImageModel from '../model/customer/image.interface';
 import { NanoIdService } from './nano-id.service';
+import { StorageReference } from 'firebase/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -27,10 +28,10 @@ export class ObjectStorageService {
   //   this.genericStorageRepository.ensureInitialized();
   //   return await this.genericStorageRepository!.update(entity);
   // }
-  // public async delete(ref: DocumentReference): Promise<IResponseModel<T>> {
-  //   this.genericStorageRepository.ensureInitialized();
-  //   return await this.genericStorageRepository!.delete(ref);
-  // }
+  public async delete(ref: StorageReference): Promise<IResponseModel<any>> {
+    this.genericStorageRepository.ensureInitialized();
+    return await this.genericStorageRepository!.delete(ref);
+  }
 
   public Initialize(storagePath?: string): void {
     this.genericStorageRepository.Initialize(storagePath);
