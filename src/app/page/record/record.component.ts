@@ -93,10 +93,6 @@ export class RecordComponent implements OnInit {
     this.customers = this.options;
   }
 
-  optionSelectedStatus(event: MatSelectChange) {
-    this.status = event.value;
-  }
-
   displayCustomer(customer: ICustomerModel): string {
     return customer.name ? customer.name : '';
   }

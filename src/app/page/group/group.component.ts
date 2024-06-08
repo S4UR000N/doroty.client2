@@ -15,11 +15,13 @@ import { CustomerFragmentComponent } from '../../component/customer-fragment/cus
 import { BackComponent } from '../../component/back/back.component';
 import { DatePipe } from '@angular/common';
 import moment from 'moment';
+import { AngularMaterialFormModule } from '../../module/angular-material-form.module';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-group',
   standalone: true,
-  imports: [CustomerFragmentComponent, BackComponent, DatePipe],
+  imports: [CustomerFragmentComponent, BackComponent, DatePipe, AngularMaterialFormModule],
   templateUrl: './group.component.html',
   styleUrl: './group.component.scss'
 })
@@ -28,6 +30,7 @@ export class GroupComponent implements OnInit {
   public storagePath: string;
   public appointments: IAppointmentModel[] = [];
   public images: IImageModel[] = [];
+  public dateSort: number = 1;
 
   public constructor(
     private route: ActivatedRoute,
@@ -47,6 +50,7 @@ export class GroupComponent implements OnInit {
         this.alertService.showAlert('success', 'Termin uspiješno kreiran.');
         this.appointmentSubService.readMany().then(res => {
           this.appointments = res.result!;
+          this.sortByDate();
         });
       }
       else {
@@ -61,6 +65,7 @@ export class GroupComponent implements OnInit {
         this.alertService.showAlert('success', 'Termin uspiješno ažuriran.');
         this.appointmentSubService.readMany().then(res => {
           this.appointments = res.result!;
+          this.sortByDate();
         });
       }
       else {
@@ -137,10 +142,53 @@ export class GroupComponent implements OnInit {
     return '';
   }
 
+  asDateObject(date: any) {
+    if (date) {
+      if (date.seconds) {
+        return moment.unix(date.seconds).toDate();
+      }
+      else if (typeof date.getFullYear == 'function') {
+        return date;
+      }
+    }
+    return '';
+  }
+
+  sortNewToOld(a: any, b: any) {
+    const dateA = this.asDateObject(a.date);
+    const dateB = this.asDateObject(b.date);
+
+    if (dateA === '' && dateB === '') return 0;
+    if (dateA === '') return 1;
+    if (dateB === '') return -1;
+
+    return (dateB as Date).getTime() - (dateA as Date).getTime();
+  }
+
+  sortOldToNew(a: any, b: any) {
+    const dateA = this.asDateObject(a.date);
+    const dateB = this.asDateObject(b.date);
+
+    if (dateA === '' && dateB === '') return 0;
+    if (dateA === '') return 1;
+    if (dateB === '') return -1;
+
+    return (dateA as Date).getTime() - (dateB as Date).getTime();
+  }
+
+  sortByDate() {
+    if (this.dateSort) {
+      this.appointments.sort((a, b) => this.sortNewToOld(a, b));
+    }
+    else {
+      this.appointments.sort((a, b) => this.sortOldToNew(a, b));
+    }
+  }
+
   async ngOnInit(): Promise<void> {
     this.appointmentSubService.Initialize(this.path);
     this.objectStorageService.Initialize(this.storagePath);
-    this.appointments = (await this.appointmentSubService.readMany()).result!;
+    this.appointments = (await this.appointmentSubService.readMany()).result!.sort((a, b) => this.sortNewToOld(a, b));
     this.images = (await this.objectStorageService.readMany()).result!;
   }
 }

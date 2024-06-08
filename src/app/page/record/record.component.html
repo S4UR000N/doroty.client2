@@ -24,7 +24,7 @@
     <div class="col-2 ps-0">
         <mat-form-field>
             <mat-label>Filtriraj Status</mat-label>
-            <mat-select required [(value)]="status" (selectionChange)="optionSelectedStatus($event)">
+            <mat-select required [(value)]="status">
                 <mat-option [value]="2">Svi</mat-option>
                 <mat-option [value]="1">Aktivan</mat-option>
                 <mat-option [value]="0">Nije Aktivan</mat-option>
