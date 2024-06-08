@@ -6,7 +6,9 @@ import { AppointmentSubService } from '../../../service/appointment-sub.service'
 import IAppointmentModel from '../../../model/customer/appointment.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
+import { Timestamp } from 'firebase/firestore';
+import moment from 'moment';
 
 @Component({
   selector: 'app-update-appointment',
@@ -16,7 +18,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapt
   styleUrl: './update-appointment.dialog.scss',
   providers: [
     {provide: DateAdapter, useClass: NativeDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS}
+    {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS},
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
   ]
 })
 export class UpdateAppointmentDialog implements OnInit {
@@ -35,11 +38,11 @@ export class UpdateAppointmentDialog implements OnInit {
     public dialogRef: MatDialogRef<IAppointmentModel>,
     @Inject(MAT_DIALOG_DATA) public data: {appointmentModel: IAppointmentModel, path:string}
   ) {
+    if (data.appointmentModel.date?.hasOwnProperty('seconds')) {
+      data.appointmentModel.date =  moment.unix((data.appointmentModel.date as unknown as Timestamp).seconds).toDate();
+    }
     this.form.setValue(data.appointmentModel);
-    this.form.patchValue({date: new Date(data.appointmentModel.date)})
-    this.date = data.appointmentModel.date;
   }
-
   
   async submit(event: MouseEvent): Promise<void> {
     (event.target as HTMLButtonElement).disabled = true;
@@ -55,14 +58,6 @@ export class UpdateAppointmentDialog implements OnInit {
   }
   async cancel(): Promise<void> {
     this.dialogRef.close();
-  }
-
-  async selectDate(event: MatDatepickerInputEvent<any, any>) {
-    console.log("date change");
-    let date = new Date(event.value);
-    let dateString = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`;
-    this.form.patchValue({date: dateString});
-    this.date = dateString;
   }
 
   async ngOnInit(): Promise<void> {

@@ -12,6 +12,7 @@ import { UpdateCustomerDialog } from '../../dialog/customer/update-customer/upda
 import { AngularMaterialFormModule } from '../../module/angular-material-form.module';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-record',
@@ -26,6 +27,7 @@ export class RecordComponent implements OnInit {
   });
   public customers: ICustomerModel[] = [];
   public options: ICustomerModel[] = [];
+  public status: number = 2;
 
   public constructor(
     private route: ActivatedRoute,
@@ -87,12 +89,22 @@ export class RecordComponent implements OnInit {
     this.options = (await this.customerService.readQuery(this.form.get('name')?.value)).result!;
   }
 
-  optionSelected(event: MatAutocompleteSelectedEvent) {
+  optionSelectedCustomer(event: MatAutocompleteSelectedEvent) {
     this.customers = this.options;
+  }
+
+  optionSelectedStatus(event: MatSelectChange) {
+    this.status = event.value;
   }
 
   displayCustomer(customer: ICustomerModel): string {
     return customer.name ? customer.name : '';
+  }
+
+  async cancelSearchCustomers() {
+    this.form.get('name')?.reset();
+    (document.getElementById('searchCustomers') as HTMLFormElement).reset();
+    this.customers = (await this.customerService.readMany()).result!;
   }
 
   calculateAge(yearOfBirth: any) {

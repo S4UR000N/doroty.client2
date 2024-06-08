@@ -13,11 +13,13 @@ import { ObjectStorageService } from '../../service/object-storage.service';
 import IImageModel from '../../model/customer/image.interface';
 import { CustomerFragmentComponent } from '../../component/customer-fragment/customer-fragment.component';
 import { BackComponent } from '../../component/back/back.component';
+import { DatePipe } from '@angular/common';
+import moment from 'moment';
 
 @Component({
   selector: 'app-group',
   standalone: true,
-  imports: [CustomerFragmentComponent, BackComponent],
+  imports: [CustomerFragmentComponent, BackComponent, DatePipe],
   templateUrl: './group.component.html',
   styleUrl: './group.component.scss'
 })
@@ -31,6 +33,7 @@ export class GroupComponent implements OnInit {
     private route: ActivatedRoute,
     private appointmentSubService: AppointmentSubService,
     private objectStorageService: ObjectStorageService,
+    private datePipe: DatePipe,
     private alertService: AlertService,
     public dialog: MatDialog
   ) {
@@ -120,6 +123,18 @@ export class GroupComponent implements OnInit {
         this.alertService.showAlert('success', `Slike uspiješno dodane * ${count}.`);
       }
     }
+  }
+
+  asDate(date: any): Date | string {
+    if (date) {
+      if (date.seconds) {
+        return moment.unix(date.seconds).format('DD/MM/YYYY');
+      }
+      else if (typeof date.getFullYear == 'function') {
+        return moment(date).format('DD/MM/YYYY')
+      }
+    }
+    return '';
   }
 
   async ngOnInit(): Promise<void> {

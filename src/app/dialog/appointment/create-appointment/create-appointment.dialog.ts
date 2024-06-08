@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppointmentSubService } from '../../../service/appointment-sub.service';
 import IAppointmentModel from '../../../model/customer/appointment.interface';
 import { MatIconModule } from '@angular/material/icon';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
@@ -16,7 +16,8 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
   styleUrl: './create-appointment.dialog.scss',
   providers: [
     {provide: DateAdapter, useClass: NativeDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS}
+    {provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS},
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
   ]
 })
 export class CreateAppointmentDialog implements OnInit {
@@ -49,12 +50,6 @@ export class CreateAppointmentDialog implements OnInit {
   }
   async cancel(): Promise<void> {
     this.dialogRef.close();
-  }
-
-  async selectDate(event: MatDatepickerInputEvent<any, any>) {
-    let date = new Date(event.value);
-    let dateString = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`;
-    this.form.patchValue({date: dateString});
   }
 
   async ngOnInit(): Promise<void> {

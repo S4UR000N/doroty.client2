@@ -20,7 +20,7 @@
         <div class="row justify-content-center">
             <div class="col text-center">
                 <mat-form-field style="width: 212px;">
-                    <input matInput [matDatepicker]="picker" [placeholder]="date" (dateInput)="selectDate($event)">
+                    <input matInput [matDatepicker]="picker" placeholder="Izaberi Datum" [formControlName]="'date'">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker touchUi></mat-datepicker>
                 </mat-form-field>

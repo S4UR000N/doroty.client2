@@ -6,7 +6,7 @@ interface ICustomerModel {
     name: string;
     age: number;
     gender: number;
-    phone: number;
+    phone: string;
     address: string;
     description: string;
     alergies: string;

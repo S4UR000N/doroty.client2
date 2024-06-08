@@ -1,3 +1,7 @@
 table th {
     color: #119DA4;
 }
+
+::ng-deep .mdc-text-field--filled {
+    border-top-right-radius: 0px !important;
+}
