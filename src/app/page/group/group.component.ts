@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../service/alert.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -15,21 +15,25 @@ import { CustomerFragmentComponent } from '../../component/customer-fragment/cus
 import { BackComponent } from '../../component/back/back.component';
 import moment from 'moment';
 import { AngularMaterialFormModule } from '../../module/angular-material-form.module';
+import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-group',
   standalone: true,
-  imports: [CustomerFragmentComponent, BackComponent, AngularMaterialFormModule],
+  imports: [CustomerFragmentComponent, BackComponent, AngularMaterialFormModule, NgbCarouselModule],
   templateUrl: './group.component.html',
   styleUrl: './group.component.scss'
 })
 export class GroupComponent implements OnInit {
+  @ViewChild("carousel") carousel!: NgbCarousel;
+  
   public path: string;
   public storagePath: string;
   public appointments: IAppointmentModel[] = [];
   public images: IImageModel[] = [];
   public imageIndex: number = 0;
   public dateSort: number = 1;
+  public showCarousel: boolean = true;
 
   public constructor(
     private route: ActivatedRoute,
@@ -114,6 +118,7 @@ export class GroupComponent implements OnInit {
       if (hasFailed) {
         if (count > 0) {
           this.images = (await this.objectStorageService.readMany()).result!;
+          // this.fixSlideIndexing();
           this.alertService.showAlert('success', `Slike uspiješno dodane * ${count}.`);
           setTimeout(() => {this.alertService.showAlert('fail', `Slike nisu dodane * ${failedCount}.`)}, 3000);
         }
@@ -123,20 +128,24 @@ export class GroupComponent implements OnInit {
       }
       else {
         this.images = (await this.objectStorageService.readMany()).result!;
+        // this.fixSlideIndexing();
         this.alertService.showAlert('success', `Slike uspiješno dodane * ${count}.`);
       }
     }
   }
 
   async deleteImage() {
-    console.log("DELETE IMAGE");
-    console.log(this.imageIndex);
+    let isLast = false;
+    if (this.imageIndex == this.images.length - 1)
+    {
+      isLast = true;
+    }
     let conf: MatDialogConfig<ConfrimDialogModel> = new MatDialogConfig();
     conf.data = new ConfrimDialogModel('Obriši Sliku', async () => {
       let res = await this.objectStorageService.delete(this.images[this.imageIndex].ref!);
       if (res.success) {
-        console.log(this.imageIndex);
         this.images.splice(this.imageIndex, 1);
+        if (isLast) this.imageIndex = 0; 
         this.alertService.showAlert('success', 'Slika uspiješno obrisana.');
       }
       else {
@@ -144,6 +153,10 @@ export class GroupComponent implements OnInit {
       }
     });
     this.dialog.open(ConfirmDialog, conf);
+  }
+
+  onSlide(slideEvent: NgbSlideEvent) {
+    this.imageIndex = parseInt(slideEvent.current);
   }
 
   asDate(date: any): Date | string {
@@ -199,19 +212,6 @@ export class GroupComponent implements OnInit {
     else {
       this.appointments.sort((a, b) => this.sortOldToNew(a, b));
     }
-  }
-
-  setImageIndex(index: number) {
-    this.imageIndex = index;
-  }
-  incrementImageIndex() {
-    this.imageIndex++;
-  }
-  decrementImageIndex() {
-    this.imageIndex--;
-  }
-  print(x: any) {
-    console.log(x);
   }
 
   async ngOnInit(): Promise<void> {

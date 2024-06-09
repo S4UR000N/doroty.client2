@@ -56,21 +56,20 @@
   <button type="button" class="btn btn-danger float-end" (click)="deleteImage()">- Obriši Sliku</button>
 </div>
 
-<div class="container-fluid">
+<!-- <div class="container-fluid">
 <div class="row justify-content-center">
     <div id="carouselExampleIndicators" class="carousel slide col-6 my-5" data-bs-interval="false">
-        <div class="carousel-indicators">
+        <div id="carousel-indicators" class="carousel-indicators">
           @for (image of images; let index = $index; let first = $first; track image.ref) {
             @if (first) {
-              <button type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]='index' class="active" (click)="setImageIndex(index)"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]='index' class="active indicator" (click)="setImageIndex(index)"></button>
             }
             @else {
-              <button type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]='index' (click)="setImageIndex(index)"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]='index' class="indicator" (click)="setImageIndex(index)"></button>
             }
           }
         </div>
-        <div class="carousel-inner">
-          {{print(images)}}
+        <div id="carousel-inner" class="carousel-inner">
           @for (image of images; let index = $index; let first = $first; track index) {
             @if (first) {
               <div class="carousel-item active">
@@ -93,4 +92,18 @@
         </button>
       </div>
 </div>
+</div> -->
+
+@if (images) {
+<div class="container-fluid">
+<div class="row justify-content-center">
+  <ngb-carousel #carousel class="col-6 my-5" [interval]="0" (slide)="onSlide($event)">
+    @for (image of images; track image.ref; let i = $index) {
+      <ng-template ngbSlide [id]="i.toString()">
+        <img [src]="image.url" class="d-block w-100">
+      </ng-template>
+    }
+  </ngb-carousel>
 </div>
+</div>
+}
