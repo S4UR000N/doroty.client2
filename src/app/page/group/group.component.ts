@@ -47,7 +47,7 @@ export class GroupComponent implements OnInit {
   }
 
   async create(): Promise<void> {
-    this.dialog.open(CreateAppointmentDialog, {data: {path: this.path}}).afterClosed().subscribe(success => {
+    this.dialog.open(CreateAppointmentDialog, {data: {path: this.path}, maxWidth: "100%"}).afterClosed().subscribe(success => {
       if (success) {
         this.alertService.showAlert('success', 'Termin uspiješno kreiran.');
         this.appointmentSubService.readMany().then(res => {

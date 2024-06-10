@@ -1,23 +1,19 @@
 <h2 mat-dialog-title>Dodaj Termin</h2>
 <mat-dialog-content class="custom-scrollbar">
     <form [formGroup]="form">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center flex-nowrap">
             <div class="col text-center">
                 <mat-form-field>
                     <mat-label>Tretman</mat-label>
                     <input matInput type="text" [formControlName]="'name'" required/>
                 </mat-form-field>
             </div>
-        </div>
-        <div class="row justify-content-center">
             <div class="col text-center">
-                <mat-form-field>
-                    <mat-label>Opis</mat-label>
-                    <textarea matInput type="text" [formControlName]="'description'" required></textarea>
+                <mat-form-field class="">
+                    <mat-label>Lijek</mat-label>
+                    <input matInput type="text" [formControlName]="'medicine'" required/>
                 </mat-form-field>
             </div>
-        </div>
-        <div class="row justify-content-center">
             <div class="col text-center">
                 <mat-form-field style="width: 212px;">
                     <input matInput [matDatepicker]="picker" placeholder="Izaberi Datum" [formControlName]="'date'">
@@ -27,15 +23,14 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col text-center">
                 <mat-form-field>
-                    <mat-label>Lijek</mat-label>
-                    <input matInput type="text" [formControlName]="'medicine'" required/>
+                    <mat-label>Opis</mat-label>
+                    <textarea matInput type="text" [formControlName]="'description'" required></textarea>
                 </mat-form-field>
             </div>
-        </div>
     </form>
 <mat-dialog-actions>
   <button mat-button (click)="submit($event)">Spremi</button>
   <button mat-button (click)="cancel()">Odustani</button>
 </mat-dialog-actions>
+</mat-dialog-content>
