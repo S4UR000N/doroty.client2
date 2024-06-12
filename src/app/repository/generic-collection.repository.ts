@@ -61,10 +61,10 @@ class GenericCollectionRepository<T extends { ref?: DocumentReference }> extends
     async readOneSub<S extends T>(ref: DocumentReference): Promise<IResponseModel<S>> {
         return (await this.readOne(ref) as IResponseModel<S>);
     }
-    async readQuery(constaint: QueryFieldFilterConstraint): Promise<IResponseModel<T[]>> {
+    async readQuery(...constaints: QueryFieldFilterConstraint[]): Promise<IResponseModel<T[]>> {
         try {
             let docs: T[] = [];
-            (await getDocs(query(this.collectionRef, constaint))).forEach(doc => docs.push({ ...(doc.data() as T), ref: doc.ref }));
+            (await getDocs(query(this.collectionRef, ...constaints))).forEach(doc => docs.push({ ...(doc.data() as T), ref: doc.ref }));
             let res: IResponseModel<T[]> = {
                 result: docs,
                 success: true

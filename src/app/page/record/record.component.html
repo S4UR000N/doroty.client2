@@ -12,7 +12,9 @@
                 <input matInput type="text" [formControlName]="'name'" (input)="searchCustomers()" [matAutocomplete]="auto"/>
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayCustomer" (optionSelected)="optionSelectedCustomer($event)">
                     @if (options.length > 0) {
-                        <mat-option [value]="options[0]">{{options[0].name}}</mat-option>
+                        @for (option of options; track option.ref) {
+                            <mat-option [value]="option">{{option.name}}</mat-option>
+                        }
                     }
                 </mat-autocomplete>
             </mat-form-field>

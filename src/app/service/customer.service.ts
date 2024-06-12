@@ -16,7 +16,7 @@ export class CustomerService {
 
   public create = async (entity: ICustomerModel) => await this.customerCollectionRepository.create(entity);
   public readOneById = async (id: string) => await this.customerCollectionRepository.readOne(await this.customerCollectionRepository.createRef(id));
-  public readQuery = async (customerName: string) => await this.customerCollectionRepository.readQuery(where("name", "==", customerName));
+  public readQuery = async (customerName: string) => await this.customerCollectionRepository.readQuery(where('name', '>=', customerName), where('name', '<=', customerName + '\uf8ff'));
   public readMany = async () => await this.customerCollectionRepository.readMany();
   public update = async (entity: ICustomerModel) => await this.customerCollectionRepository.update(entity);
   public delete = async (ref: DocumentReference) => await this.customerCollectionRepository.delete(ref);
