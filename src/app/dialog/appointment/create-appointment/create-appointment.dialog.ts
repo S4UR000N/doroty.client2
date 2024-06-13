@@ -6,7 +6,6 @@ import { AppointmentSubService } from '../../../service/appointment-sub.service'
 import IAppointmentModel from '../../../model/customer/appointment.interface';
 import { MatIconModule } from '@angular/material/icon';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-create-appointment',

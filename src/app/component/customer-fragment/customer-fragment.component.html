@@ -4,16 +4,16 @@
         <div class="col-7 my-2">
             <div class="row mx-1 my-2 cyan"><div class="font-xl-large">{{customer.name}}</div></div>
             <div class="row mx-2 my-2 font-xl-medium grey" style="display: block">
-                <span>Dob: {{calculateAge(customer.age)}}</span>
-                <span>Spol: {{customer.gender ? 'M' : 'Ž' }}</span>
-                <span>Status: {{customer.status ? 'Aktivan' : 'Nije Aktivan'}}</span>
+                <span><span class="text-dark">Dob:</span> {{calculateAge(customer.age)}}</span>
+                <span><span class="text-dark">Spol:</span> {{customer.gender ? 'M' : 'Ž' }}</span>
+                <span><span class="text-dark">Status:</span> {{customer.status ? 'Aktivan' : 'Nije Aktivan'}}</span>
             </div>
             <div class="row mx-2 my-2 font-xl-medium grey">
-                <span>Telefon: {{customer.phone}}</span>    
-                <span>Alergije: {{customer.alergies}}</span>
+                <span><span class="text-dark">Telefon:</span> {{customer.phone}}</span>    
+                <span><span class="text-dark">Alergije:</span> {{customer.alergies}}</span>
             </div>
             <div class="row mx-2 font-xl-medium grey">        
-                <div class="my-2">Opis: {{customer.description}}</div>
+                <div class="my-2"><span class="text-dark">Opis:</span> {{customer.description}}</div>
             </div>
         </div>
         <div class="col-2 mt-5 text-end">

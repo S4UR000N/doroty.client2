@@ -62,7 +62,7 @@ export class GroupComponent implements OnInit {
   }
 
   async update(appointment: IAppointmentModel): Promise<void> {
-    this.dialog.open(UpdateAppointmentDialog, {data: {appointmentModel: appointment, path: this.path}}).afterClosed().subscribe(success => {
+    this.dialog.open(UpdateAppointmentDialog, {data: {appointmentModel: appointment, path: this.path}, maxWidth: "100%"}).afterClosed().subscribe(success => {
       if (success) {
         this.alertService.showAlert('success', 'Termin uspiješno ažuriran.');
         this.appointmentSubService.readMany().then(res => {
