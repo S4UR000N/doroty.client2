@@ -22,7 +22,8 @@ export class CreateCustomerDialog {
     address: [''],
     description: [''],
     alergies: [''],
-    status: ['']
+    status: [''],
+    diabetes: ['']
   });
   public customerStatus: CustomerStatus = CustomerStatus;
 
@@ -43,7 +44,8 @@ export class CreateCustomerDialog {
       address: this.form.get('address')?.value,
       description: this.form.get('description')?.value,
       alergies: this.form.get('alergies')?.value,
-      status: this.form.get('status')?.value
+      status: this.form.get('status')?.value,
+      diabetes: this.form.get('diabetes')?.value
     };
     let res = await this.customerService.create(model);
     this.dialogRef.close(res.success);

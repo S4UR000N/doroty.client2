@@ -45,6 +45,7 @@
           <th>Spol</th>
           <th>Telefon</th>
           <th>Adresa</th>
+          <th>Dijabetes</th>
           <th>Status</th>
           <th class="text-center">Ažuriraj</th>
           <th class="text-center">Obriši</th>
@@ -59,6 +60,7 @@
                     <td (click)="redirect(customer)">{{customer.gender ? 'M' : 'Ž'}}</td>
                     <td (click)="redirect(customer)">{{customer.phone}}</td>
                     <td (click)="redirect(customer)">{{customer.address}}</td>
+                    <td (click)="redirect(customer)">{{customer.diabetes ? 'Da' : 'Ne'}}</td>
                     <td (click)="redirect(customer)">{{customer.status ? 'Aktivan' : 'Nije Aktivan'}}</td>
                     <td class="text-center td-hover" (click)="update(customer)"><i class="bi bi-pencil-square p-0 font-xl-large"></i></td>
                     <td class="text-center td-hover" (click)="delete(customer.ref!, index)"><i class="bi bi-trash2 p-0 font-xl-large"></i></td>

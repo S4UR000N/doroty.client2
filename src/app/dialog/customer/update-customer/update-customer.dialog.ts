@@ -23,7 +23,8 @@ export class UpdateCustomerDialog {
     address: [''],
     description: [''],
     alergies: [''],
-    status: ['']
+    status: [''],
+    diabetes: ['']
   });
   public customerStatus: CustomerStatus = CustomerStatus;
 
@@ -33,6 +34,9 @@ export class UpdateCustomerDialog {
     public dialogRef: MatDialogRef<ICustomerModel>,
     @Inject(MAT_DIALOG_DATA) public data: ICustomerModel
   ) {
+    if (data.diabetes === undefined) {
+      data.diabetes = 0;
+    }
     this.form.setValue(data);
   }
 
@@ -47,7 +51,8 @@ export class UpdateCustomerDialog {
       address: this.form.get('address')?.value,
       description: this.form.get('description')?.value,
       alergies: this.form.get('alergies')?.value,
-      status: this.form.get('status')?.value
+      status: this.form.get('status')?.value,
+      diabetes: this.form.get('diabetes')?.value
     };
     let res = await this.customerService.update(model);
     this.dialogRef.close(res.success);

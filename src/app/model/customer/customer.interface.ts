@@ -11,6 +11,7 @@ interface ICustomerModel {
     description: string;
     alergies: string;
     status: number;
+    diabetes: number;
     groups?: IGroupModel[];
 }
 

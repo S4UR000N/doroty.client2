@@ -22,7 +22,8 @@ export class CustomerFragmentComponent implements OnInit {
     address: '',
     description: '',
     alergies: '',
-    status: '' as any
+    status: '' as any,
+    diabetes: '' as any
   };
   public constructor(
     private route: ActivatedRoute,
